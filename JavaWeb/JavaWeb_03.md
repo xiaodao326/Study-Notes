@@ -196,8 +196,6 @@ Maven 对项目构建的生命周期划分为3套：
 
 默认的生命周期也有对应的很多命令，其他的一般都不会使用，我们只关注常用的：
 
-
-
 ### 1.4  IDEA使用Maven
 
 以后开发中我们肯定会在高级开发工具中使用Maven管理项目，而我们常用的高级开发工具是IDEA，所以接下来我们会讲解Maven在IDEA中的使用。
@@ -301,13 +299,13 @@ Maven 对项目构建的生命周期划分为3套：
 
 那么 `scope` 都可以有哪些取值呢？
 
-| **依赖范围** | 编译classpath | 测试classpath | 运行classpath | 例子              |
-| ------------ | ------------- | ------------- | ------------- | ----------------- |
-| **compile**  | Y             | Y             | Y             | logback           |
-| **test**     | -             | Y             | -             | Junit             |
-| **provided** | Y             | Y             | -             | servlet-api       |
-| **runtime**  | -             | Y             | Y             | jdbc驱动          |
-| **system**   | Y             | Y             | -             | 存储在本地的jar包 |
+| **依赖范围**     | 编译classpath | 测试classpath | 运行classpath | 例子          |
+| ------------ | ----------- | ----------- | ----------- | ----------- |
+| **compile**  | Y           | Y           | Y           | logback     |
+| **test**     | -           | Y           | -           | Junit       |
+| **provided** | Y           | Y           | -           | servlet-api |
+| **runtime**  | -           | Y           | Y           | jdbc驱动      |
+| **system**   | Y           | Y           | -           | 存储在本地的jar包  |
 
 * compile ：作用于编译环境、测试环境、运行环境。
 * test ： 作用于测试环境。典型的就是Junit坐标，以后使用Junit时，都会将scope指定为该值

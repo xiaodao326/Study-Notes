@@ -293,9 +293,6 @@ public class BServlet extends HttpServlet {
 
 * 响应头:set-cookie
 * 请求头: cookie
-
-
-
 * 前面的案例中已经能够实现，AServlet给前端发送Cookie,BServlet从request中获取Cookie的功能
 * 对于AServlet响应数据的时候，Tomcat服务器都是基于HTTP协议来响应数据
 * 当Tomcat发现后端要返回的是一个Cookie对象之后，Tomcat就会在响应头中添加一行数据==`Set-Cookie:username=zs`==
@@ -311,11 +308,9 @@ public class BServlet extends HttpServlet {
 使用Chrom浏览器打开开发者工具(F12或Crtl+Shift+I)进行查看==响应头==中的数据
 
 
-
 （2）访问BServlet对应的地址`http://localhost:8080/cookie-demo/bServlet
 
 使用Chrom浏览器打开开发者工具(F12或Crtl+Shift+I)进行查看==请求头==中的数据
-
 
 
 ### 2.3 Cookie的使用细节
@@ -323,10 +318,6 @@ public class BServlet extends HttpServlet {
 在这节我们主要讲解两个知识，第一个是Cookie的存活时间，第二个是Cookie如何存储中文，首先来学习下Cookie的存活时间。
 
 #### 2.3.1 Cookie的存活时间
-
-前面让大家思考过一个问题:
-
-
 
 (1)浏览器发送请求给AServlet,AServlet会响应一个存有`usernanme=zs`的Cookie对象给浏览器
 
@@ -398,8 +389,6 @@ public class AServlet extends HttpServlet {
 * 访问一个AServlet后，把浏览器关闭重启后，再去访问`http://localhost:8080/cookie-demo/bServet`,能在控制台打印出`username:zs`,说明Cookie没有随着浏览器关闭而被销毁
 *  通过浏览器查看Cookie的内容，会发现Cookie的相关信息
 
-
-
 #### 2.3.2 Cookie存储中文
 
 首先，先来演示一个效果，将之前`username=zs`的值改成`username=张三`，把汉字`张三`存入到Cookie中，看是什么效果:
@@ -424,9 +413,6 @@ public class AServlet extends HttpServlet {
     }
 }
 ```
-
-启动访问测试，访问`http://localhost:8080/cookie-demo/aServlet`会发现浏览器会提示错误信息
-
 
 
 通过上面的案例演示，我们得到一个结论:
@@ -699,10 +685,6 @@ public class SessionDemo2 extends HttpServlet {
 
 这句话其实不太能详细的说明Session的底层实现，接下来，咱们一步步来分析下Session的具体实现原理:
 
-(1)前提条件
-
-
-
 Session要想实现一次会话多次请求之间的数据共享，就必须要保证多次请求获取Session的对象是同一个。
 
 那么它们是一个对象么？要验证这个结论也很简单，只需要在上面案例中的两个Servlet中分别打印下Session对象
@@ -767,8 +749,6 @@ public class SessionDemo2 extends HttpServlet {
 
 那么问题又来了，如果新开一个浏览器，访问demo1或者demo2,打印在控制台的Session还是同一个对象么?
 
-
-
 ==注意:在一台电脑上演示的时候，如果是相同的浏览器必须要把浏览器全部关掉重新打开，才算新开的一个浏览器。==
 
 当然也可以使用不同的浏览器进行测试，就不需要把之前的浏览器全部关闭。
@@ -778,7 +758,6 @@ public class SessionDemo2 extends HttpServlet {
 所以Session实现的也是一次会话中的多次请求之间的数据共享。
 
 那么最主要的问题就来了，Session是如何保证在一次会话中获取的Session对象是同一个呢?
-
 
 
 (1)demo1在第一次获取session对象的时候，session对象会有一个唯一的标识，假如是`id:10`
@@ -797,12 +776,10 @@ public class SessionDemo2 extends HttpServlet {
 
 至此，`Session是基于Cookie来实现的`这就话，我们就解释完了，接下来通过实例来演示下:
 
-(1)使用chrome浏览器访问`http://localhost:8080/cookie-demo/demo1`,打开开发者模式(F12或Ctrl+Shift+I),查看==响应头(Response Headers)==数据:
+(1)使用chrome浏览器访问`http://localhost:8080/cookie-demo/demo1`,打开开发者模式(F12或Ctrl+Shift+I),查看==响应头(Response Headers)==数据
 
 
-
-(2)使用chrome浏览器再次访问`http://localhost:8080/cookie-demo/demo2`，查看==请求头(Request Headers)==数据:
-
+(2)使用chrome浏览器再次访问`http://localhost:8080/cookie-demo/demo2`，查看==请求头(Request Headers)==数据
 
 
 **小结**
@@ -820,10 +797,6 @@ public class SessionDemo2 extends HttpServlet {
 首先需要大家思考的问题是: 
 
 * 服务器重启后，Session中的数据是否还在?
-
-要想回答这个问题，我们可以先看下下面这幅图，
-
- 
 
 (1)服务器端AServlet和BServlet共用的session对象应该是存储在服务器的内存中
 
@@ -855,11 +828,7 @@ public class SessionDemo2 extends HttpServlet {
 
 ==启动==:进入到项目pom.xml所在目录，执行`tomcat7:run`
 
-
-
 ==停止==:在启动的命令行界面，输入`ctrl+c`
-
-
 
 有了上述两个正常启动和关闭的方式后，接下来的测试流程是:
 
@@ -873,8 +842,6 @@ public class SessionDemo2 extends HttpServlet {
 
 (5)访问`http://localhost:8080/cookie-demo/demo2` 查看是否能获取到session中的数据
 
-
-
 经过测试，会发现只要服务器是正常关闭和启动，session中的数据是可以被保存下来的。
 
 那么Tomcat服务器到底是如何做到的呢?
@@ -884,8 +851,6 @@ public class SessionDemo2 extends HttpServlet {
 * 钝化：在服务器正常关闭后，Tomcat会自动将Session数据写入硬盘的文件中
 
   * 钝化的数据路径为:`项目目录\target\tomcat\work\Tomcat\localhost\项目名称\SESSIONS.ser`
-
-
 
 * 活化：再次启动服务器后，从文件中加载数据到Session中
 
@@ -929,8 +894,6 @@ session的销毁会有两种方式:
 
     * 如果没有配置，默认是30分钟，默认值是在Tomcat的web.xml配置文件中写死的
 
-      
-
 * 调用Session对象的invalidate()进行销毁
 
   * 在SessionDemo2类中添加session销毁的方法
@@ -961,8 +924,6 @@ session的销毁会有两种方式:
     ```
 
   * 启动访问测试，先访问demo1将数据存入到session，再次访问demo2从session中获取数据
-
-    
 
   * 该销毁方法一般会在用户退出的时候，需要将session销毁掉。
 
@@ -1003,20 +964,14 @@ Cookie和Session的应用场景分别是什么?
 
 2. 完成注册功能，并实现==验证码==功能
 
-
-
 ### 4.2 用户登录功能
 
 1. 需求:
-
-
 
 * 用户登录成功后，跳转到列表页面，并在页面上展示当前登录的用户名称
 * 用户登录失败后，跳转回登录页面，并在页面上展示对应的错误信息
 
 2. 实现流程分析
-
-
 
 (1)前端通过表单发送请求和数据给Web层的LoginServlet
 
@@ -1157,8 +1112,6 @@ public class UserService {
 
 (3.1)将`04-资料\1. 登录注册案例\1. 静态页面`拷贝到项目的`webapp`目录下:
 
-
-
 (3.2)将login.html内容修改成login.jsp
 
 ```jsp
@@ -1268,8 +1221,6 @@ public class LoginServlet extends HttpServlet {
 
 如果用户勾选“记住用户” ，则下次访问登陆页面自动填充用户名密码。这样可以提升用户的体验。
 
-
-
 对应上面这个需求，最大的问题就是: 如何自动填充用户名和密码?
 
 2. 实现流程分析
@@ -1283,8 +1234,6 @@ public class LoginServlet extends HttpServlet {
 * 何时写入Cookie?
   * 用户必须登陆成功后才需要写
   * 用户必须在登录页面勾选了`记住我`的复选框
-
-
 
 (1)前端需要在发送请求和数据的时候，多携带一个用户是否勾选`Remember`的数据
 
@@ -1394,14 +1343,11 @@ public class LoginServlet extends HttpServlet {
 
 只有当前用户名和密码输入正确，并且勾选了Remeber的复选框，在响应头中才可以看得cookie的相关数据
 
-
-
 ### 4.4 记住我-获取Cookie
 
 1. 需求
 
 登录成功并勾选了Remeber后，后端返回给前端的Cookie数据就已经存储好了，接下来就需要在页面获取Cookie中的数据，并把数据设置到登录页面的用户名和密码框中。
-
 
 
 如何在页面直接获取Cookie中的值呢?
@@ -1411,7 +1357,6 @@ public class LoginServlet extends HttpServlet {
 在页面可以使用EL表达式，${cookie.==key==.value}
 
 key:指的是存储在cookie中的键名称
-
 
 
 (1)在login.jsp用户名的表单输入框使用value值给表单元素添加默认值，value可以使用`${cookie.username.value}`
@@ -1454,8 +1399,6 @@ key:指的是存储在cookie中的键名称
 ```
 
 4. 访问测试，重新访问登录页面，就可以看得用户和密码已经被填充。
-
-
 
 ### 4.5 用户注册功能
 
@@ -1629,21 +1572,15 @@ public class RegisterServlet extends HttpServlet {
 
 (3.6)启动测试，
 
-如果是注册的用户信息已经存在:
+如果是注册的用户信息已经存在
 
-
-
-如果注册的用户信息不存在，注册成功:
-
-
+如果注册的用户信息不存在，注册成功
 
 ### 4.6 验证码-展示
 
 1. 需求分析
 
 展示验证码：展示验证码图片，并可以点击切换
-
-
 
 验证码的生成是通过工具类来实现的，具体的工具类参考
 
@@ -1728,16 +1665,12 @@ public class CheckCodeServlet extends HttpServlet {
 * 判断程序生成的验证码 和 用户输入的验证码 是否一样，如果不一样，则阻止注册
 * 验证码图片访问和提交注册表单是==两次==请求，所以要将程序生成的验证码存入Session中
 
-
-
-思考:为什么要把验证码数据存入到Session中呢?
+思考:为什么要把验证码数据存入到Session中呢
 
 * 生成验证码和校验验证码是两次请求，此处就需要在一个会话的两次请求之间共享数据
 * 验证码属于安全数据类的，所以我们选中Session来存储验证码数据。
 
 2. 实现流程分析
-
-
 
 (1)在CheckCodeServlet中生成验证码的时候，将验证码数据存入Session对象
 

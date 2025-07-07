@@ -39,7 +39,6 @@ public class ServletDemo3 extends HttpServlet {
 启动成功后就可以通过浏览器来访问，并且根据传入参数的不同就可以在页面上展示不同的内容:
 
 
-
 **小结**
 
 在这节中，我们主要认识了下request对象和reponse对象:
@@ -50,7 +49,6 @@ public class ServletDemo3 extends HttpServlet {
 目前我们只知道这两个对象是用来干什么的，那么它们具体是如何实现的，就需要我们继续深入的学习。接下来，就先从Request对象来学习,主要学习下面这些内容:
 
 * request继承体系
-
 * request获取请求参数
 * request请求转发
 
@@ -71,15 +69,9 @@ public class ServletDemo3 extends HttpServlet {
 
 首先，我们先来看下Request的继承体系:
 
-
-
 从上图中可以看出，ServletRequest和HttpServletRequest都是Java提供的，所以我们可以打开JavaEE提供的API文档[参考: 资料/JavaEE7-api.chm],打开后可以看到:
 
-
-
 所以ServletRequest和HttpServletRequest是继承关系，并且两个都是接口，接口是无法创建对象，这个时候就引发了下面这个问题:
-
-
 
 这个时候，我们就需要用到Request继承体系中的`RequestFacade`:
 
@@ -120,8 +112,6 @@ HTTP请求数据总共分为三部分内容，分别是==请求行、请求头�
 #### 2.2.1 获取请求行数据
 
 请求行包含三块内容，分别是`请求方式`、`请求资源路径`、`HTTP协议及版本`
-
-
 
 对于这三部分内容，request对象都提供了对应的API方法来获取，具体如下:
 
@@ -187,15 +177,7 @@ public class RequestDemo1 extends HttpServlet {
 }
 ```
 
-启动服务器，访问`http://localhost:8080/request-demo/req1?username=zhangsan&passwrod=123`，获取的结果如下:
-
-
-
 #### 2.2.2 获取请求头数据
-
-对于请求头的数据，格式为`key: value`如下:
-
-
 
 所以根据请求头名称获取对应值的方法为:
 
@@ -224,15 +206,9 @@ public class RequestDemo1 extends HttpServlet {
 
 ```
 
-重新启动服务器后，`http://localhost:8080/request-demo/req1?username=zhangsan&passwrod=123`，获取的结果如下:
-
-
-
 #### 2.2.3 获取请求体数据
 
 浏览器在发送GET请求的时候是没有请求体的，所以需要把请求方式变更为POST，请求体中的数据格式如下:
-
-
 
 对于请求体中的数据，Request对象提供了如下两种方式来获取其中的数据，分别是:
 
@@ -330,12 +306,7 @@ public class RequestDemo1 extends HttpServlet {
 BufferedReader流是通过request对象来获取的，当请求完成后request对象就会被销毁，request对象被销毁后，BufferedReader流就会自动关闭，所以此处就不需要手动关闭流了。
 
 4. 启动服务器，通过浏览器访问`http://localhost:8080/request-demo/req.html`
-
-
-
 点击`提交`按钮后，就可以在控制台看到前端所发送的请求数据
-
-
 
 **小结**
 
@@ -429,14 +400,6 @@ public class RequestDemo1 extends HttpServlet {
     }
 }
 ```
-
-* 对于上述的代码，会存在什么问题呢?
-
-
-
-* 如何解决上述重复代码的问题呢?
-
-
 
 当然，也可以在doGet中调用doPost,在doPost中完成参数的获取和打印,另外需要注意的是，doGet和doPost方法都必须存在，不能删除任意一个。
 
@@ -664,20 +627,11 @@ public class RequestDemo1 extends HttpServlet {
 ```
 
 ### 2.3 IDEA快速创建Servlet
-
-使用通用方式获取请求参数后，屏蔽了GET和POST的请求方式代码的不同，则代码可以定义如下格式:
-
-
-
 由于格式固定，所以我们可以使用IDEA提供的模板来制作一个Servlet的模板，这样我们后期在创建Servlet的时候就会更高效，具体如何实现:
 
 (1)按照自己的需求，修改Servlet创建的模板内容
 
-
-
 （2）使用servlet模板创建Servlet类
-
-
 
 ### 2.4 请求参数中文乱码问题
 
@@ -729,21 +683,13 @@ public class RequestDemo4 extends HttpServlet {
 
 （3）启动服务器，页面上输入中文参数
 
-
-
 （4）查看控制台打印内容
-
-
 
 （5）把req.html页面的请求方式改成post,再次发送请求和中文参数
 
-
-
 （6）查看控制台打印内容，依然为乱码
 
-
-
-通过上面的案例，会发现，不管是GET还是POST请求，在发送的请求参数中如果有中文，在后台接收的时候，都会出现中文乱码的问题。具体该如何解决呢？
+通过上面的案例，会发现，不管是GET还是POST请求，在发送的请求参数中如果有中文，在后台接收的时候，都会出现中文乱码的问题。
 
 #### 2.4.1 POST请求解决方案
 
@@ -798,8 +744,6 @@ public class RequestDemo4 extends HttpServlet {
 
 1. 首先我们需要先分析下GET请求出现乱码的原因:
 
-
-
 (1)浏览器通过HTTP协议发送请求和数据给后台服务器（Tomcat)
 
 (2)浏览器在发送HTTP的过程中会对中文数据进行URL==编码==
@@ -834,17 +778,11 @@ public class RequestDemo4 extends HttpServlet {
 
 使用`http://www.mytju.com/classcode/tools/encode_utf8.asp`，输入`张三`
 
-
-
 就可以获取张和三分别对应的10进制，然后在使用计算器，选择程序员模式，计算出对应的二进制数据结果:
-
-
 
 在计算的十六进制结果中，每两位前面加一个%,就可以获取到`%E5%BC%A0%E4%B8%89`。
 
 当然你从上面所提供的网站中就已经能看到编码16进制的结果了:
-
-
 
 但是对于上面的计算过程，如果没有工具，纯手工计算的话，相对来说还是比较复杂的，我们也不需要进行手动计算，在Java中已经为我们提供了编码和解码的API工具类可以让我们更快速的进行编码和解码:
 
@@ -888,17 +826,12 @@ public class URLDemo {
 
 2. 清楚了出现乱码的原因，接下来我们就需要想办法进行解决
 
-
-
-从上图可以看住，
-
 * 在进行编码和解码的时候，不管使用的是哪个字符集，他们对应的`%E5%BC%A0%E4%B8%89`是一致的
 
 * 那他们对应的二进制值也是一样的，为:
 
   * ```
     1110 0101 1011 1100 1010 0000 1110 0100 1011 1000 1000 1001
-    ```
 
 * 为所以我们可以考虑把`å¼ ä¸`转换成字节，在把字节转换成`张三`，在转换的过程中是它们的编码一致，就可以解决中文乱码问题。
 
@@ -939,8 +872,6 @@ public class URLDemo {
 **说明**:在第18行中打印的数据是`-27 -68 -96 -28 -72 -119`和`张三`转换成的二进制数据`1110 0101 1011 1100 1010 0000 1110 0100 1011 1000 1000 1001`为什么不一样呢？
 
 其实打印出来的是十进制数据，我们只需要使用计算机换算下就能得到他们的对应关系，如下图:
-
-
 
 至此对于GET请求中文乱码的解决方案，我们就已经分析完了，最后在代码中去实现下:
 
@@ -1025,8 +956,6 @@ public class RequestDemo4 extends HttpServlet {
 
 1. ==请求转发(forward):一种在服务器内部的资源跳转方式。==
 
-
-
 (1)浏览器发送请求给服务器，服务器中对应的资源A接收到请求
 
 (2)资源A处理完请求后将请求发给资源B
@@ -1040,10 +969,6 @@ public class RequestDemo4 extends HttpServlet {
 ```
 req.getRequestDispatcher("资源B路径").forward(req,resp);
 ```
-
-具体如何来使用，我们先来看下需求:
-
-
 
 针对上述需求，具体的实现步骤为:
 
@@ -1121,11 +1046,8 @@ public class RequestDemo5 extends HttpServlet {
 
 (4)启动测试
 
-访问`http://localhost:8080/request-demo/req5`,就可以在控制台看到如下内容:
+访问`http://localhost:8080/request-demo/req5`
 
-
-
-说明请求已经转发到了`/req6`
 
 3. 请求转发资源间共享数据:使用Request对象
 
@@ -1220,9 +1142,7 @@ public class RequestDemo6 extends HttpServlet {
 * 浏览器地址栏路径不发生变化
 
   虽然后台从`/req5`转发到`/req6`,但是浏览器的地址一直是`/req5`,未发生变化
-
   
-
 * 只能转发到当前服务器的内部资源
 
   不能从一个服务器通过转发访问另一台服务器
@@ -1235,14 +1155,10 @@ public class RequestDemo6 extends HttpServlet {
 
 前面讲解完Request对象，接下来我们回到刚开始的那张图:
 
-
-
 * Request:使用request对象来==获取==请求数据
 * Response:使用response对象来==设置==响应数据
 
-Reponse的继承体系和Request的继承体系也非常相似:
-
-
+Reponse的继承体系和Request的继承体系也非常相似
 
  介绍完Response的相关体系结构后，接下来对于Response我们需要学习如下内容:
 
@@ -1257,8 +1173,6 @@ HTTP响应数据总共分为三部分内容，分别是==响应行、响应头�
 
 1. 响应行
 
-
-
 对于响应头，比较常用的就是设置响应状态码:
 
 ```
@@ -1267,8 +1181,6 @@ void setStatus(int sc);
 
 2. 响应头
 
-
-
 设置响应头键值对：
 
 ```
@@ -1276,8 +1188,6 @@ void setHeader(String name,String value);
 ```
 
 3. 响应体
-
-
 
 对于响应体，是通过字符、字节输出流的方式往浏览器写，
 
@@ -1299,8 +1209,6 @@ ServletOutputStream getOutputStream();
 
 1. ==Response重定向(redirect):一种资源跳转方式。==
 
-
-
 (1)浏览器发送请求给服务器，服务器中对应的资源A接收到请求
 
 (2)资源A现在无法处理该请求，就会给浏览器响应一个302的状态码+location的一个访问资源B的路径
@@ -1315,10 +1223,6 @@ ServletOutputStream getOutputStream();
 resp.setStatus(302);
 resp.setHeader("location","资源B的访问路径");
 ```
-
-具体如何来使用，我们先来看下需求:
-
-
 
 针对上述需求，具体的实现步骤为:
 
@@ -1392,9 +1296,7 @@ public class ResponseDemo1 extends HttpServlet {
 
 (4)启动测试
 
-访问`http://localhost:8080/request-demo/resp1`,就可以在控制台看到如下内容:
-
-
+访问`http://localhost:8080/request-demo/resp1`
 
 说明`/resp1`和`/resp2`都被访问到了。到这重定向就已经完成了。
 
@@ -1429,8 +1331,6 @@ public class ResponseDemo1 extends HttpServlet {
 
   当进行重定向访问的时候，由于是由浏览器发送的两次请求，所以地址会发生变化
 
-  
-
 * 可以重定向到任何位置的资源(服务内容、外部均可)
 
   因为第一次响应结果中包含了浏览器下次要跳转的路径，所以这个路径是可以任意位置资源。
@@ -1441,15 +1341,11 @@ public class ResponseDemo1 extends HttpServlet {
 
 介绍完==请求重定向==和==请求转发==以后，接下来需要把这两个放在一块对比下:
 
-
-
 以后到底用哪个，还是需要根据具体的业务来决定。
 
 ### 3.3 路径问题
 
 1. 问题1：转发的时候路径上没有加`/request-demo`而重定向加了，那么到底什么时候需要加，什么时候不需要加呢?
-
-
 
 其实判断的依据很简单，只需要记住下面的规则即可:
 
@@ -1657,8 +1553,6 @@ public class ResponseDemo4 extends HttpServlet {
 
 #### 4.1.1 需求分析
 
-
-
 1. 用户在登录页面输入用户名和密码，提交请求给LoginServlet
 2. 在LoginServlet中接收请求和数据[用户名和密码]
 3. 在LoginServlt中通过Mybatis实现调用UserMapper来根据用户名和密码查询数据库表
@@ -1671,19 +1565,11 @@ public class ResponseDemo4 extends HttpServlet {
 
 1. 复制资料中的静态页面到项目的webapp目录下
 
-参考`资料\1. 登陆注册案例\1. 静态页面`,拷贝完效果如下:
-
-
-
 2. 创建db1数据库，创建tb_user表，创建User实体类
 
 2.1 将`资料\1. 登陆注册案例\2. MyBatis环境\tb_user.sql`中的sql语句执行下:
 
-
-
  2.2 将`资料\1. 登陆注册案例\2. MyBatis环境\User.java`拷贝到com.itheima.pojo
-
-
 
 3. 在项目的pom.xml导入Mybatis和Mysql驱动坐标
 
@@ -1854,21 +1740,9 @@ public class LoginServlet extends HttpServlet {
 
 4. 启动服务器测试
 
-4.1 如果用户名和密码输入错误，则
-
-
-
-4.2 如果用户名和密码输入正确，则
-
-
-
-至此用户的登录功能就已经完成了~
-
 ### 4.2 用户注册
 
 #### 4.2.1 需求分析
-
-
 
 1. 用户在注册页面输入用户名和密码，提交请求给RegisterServlet
 2. 在RegisterServlet中接收请求和数据[用户名和密码]
