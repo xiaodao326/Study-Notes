@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page1</title>
+  <link rel="stylesheet" href="../css/index1.css">
+</head>
+
+<body>
+  <div class="header">
+    <div class="inner-header flex"></div>
+    <div>
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewbox="0 24 150 28" preservaAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xLink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="content flex">
+    <p>自 然 景 观</p>
+  </div>
+  <div class="jumpto">
+    <div class="page1 card" onclick="goin('./index1.html')" style="--clr:#ff6464;">
+      首页
+      <!-- <span>首页</span> -->
+    </div>
+    <div class="page2 card" onclick="goin('./index2.html')" style="--clr:#64c0ff;">
+      介绍
+      <!-- <span>文章</span> -->
+    </div>
+    <div class="page3 card" onclick="goin('./index3.html')" style="--clr:#64c0ff;">
+      欣赏
+      <!-- <span>欣赏</span> -->
+    </div>
+  </div>
+  <!-- 转场动画 -->
+  <div class="loading">
+    <div class="box">
+      <svg viewbox='0 0 50 50'>
+        <circle r='25' cx='25' cy='25'></circle>
+        <span>LOADING</span>
+      </svg>
+    </div>
+  </div>
+  <script>
+    // function jump(target) {
+    //   window.location.href = target
+    // }
+    // let cards = document.querySelectorAll('.card').forEach(card => {
+    //   card.addEventListener('mousemove', (e) => {
+    //     let x = e.offsetX
+    //     let y = e.offsetY
+    //     let cardWidth = card.clientWidth
+    //     let cardHeight = card.clientHeight
+    //     let transX = (x - cardHeight / 2)
+    //     let transY = (y - cardHeight / 2)
+    //     card.style.transform = `translateX(${transX}px) translateY(${transY}px)`
+    //     card.style.boxShadow = `${transX / -1}px ${transY / -1}px 0 #0005`
+    //   })
+    //   card.addEventListener('mouseout', (e) => {
+    //     card.style.traansform = ``
+    //     card.style.boxShadow = ``
+    //   })
+
+    // })
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      card.lastMousex = 0;
+      card.lastMouseY = 0;
+      card.isMoving = false;
+      card.addEventListener("mousemove", (e) => {
+        card.lastMouseX = e.offsetX;
+        card.lastMouseY = e.offsetY;
+        card.isMoving = true;
+      });
+      card.addEventListener("mouseout", (e) => {
+        card.isMoving = false;
+      });
+    });
+    function animate() {
+      requestAnimationFrame(animate);
+      cards.forEach((card) => {
+        if (card.isMoving) {
+          const cardWidth = card.clientWidth;
+          const cardHeight = card.clientHeight;
+          const transX = card.lastMouseX - cardWidth / 2;
+          const transY = card.lastMouseY - cardHeight / 2;
+          card.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
+          card.style.boxShadow = `${transX / -1}px ${transY / -1}px 0 #0007`;
+        } else {
+          card.style.transform = ``;
+          card.style.boxShadow = ``;
+        }
+      });
+    }
+    animate();
+    //转场动画
+    const loading = document.querySelector('.loading');
+    function goin(target) {
+      loading.classList.remove('loading_out');
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1000);
+    }
+    function out() {
+      loading.classList.add('loading_out');
+    };
+    window.addEventListener('load', () => {
+      out();
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page2</title>
+  <link rel="stylesheet" href="../css/index2.css">
+</head>
+
+<body>
+  <div class="top-fixed"></div>
+  <div class="top">
+    <div class="jumpto">
+      <div class="page1 card" onclick="goin('./index1.html')" style="--clr:#64c0ff;">
+        首页
+        <!-- <span>首页</span> -->
+      </div>
+      <div class="page2 card" onclick="goin('./index2.html')" style="--clr:#ff6464;">
+        介绍
+        <!-- <span>文章</span> -->
+      </div>
+      <div class="page3 card" onclick="goin('./index3.html')" style="--clr:#64c0ff;">
+        欣赏
+        <!-- <span>欣赏</span> -->
+      </div>
+    </div>
+  </div>
+  <div class="shell">
+    <header>
+      <div class="img"></div>
+    </header>
+    <div class="main">
+      <main>
+        <article>
+          <div class="multicol">
+            <h1>this is the</h1>
+            <h2> の Natural Landscape and Environment</h2>
+            <p>
+              The Breathtaking Coastal Scenery
+              Where the land meets the sea,a breathtaking tapestry of natural beauty unfolds.The coastline,with its
+              rugged cliffs,sandy beaches,and crashing waves,is a dynamic and ever-changing landscape that captivates
+              the senses.The salty sea breeze carries the sound of the waves,a constant and soothing rhythm that seems
+              to synchronize with the beat of your heart.
+              The cliffs,carved by the relentless force of the ocean over countless years,stand tall and proud,their
+              faces pockmarked with caves and crevices.Seabirds wheel and dive around them,their cries mingling with the
+              roar of the surf.Below,the waves crash against the rocks,sending up plumes of spray that catch the
+              sunlight and create a shimmering mist.The colors of the sea are mesmerizing,ranging from deep azure to
+              shimmering turquoise,depending on the depth and the angle of the light.
+            </p>
+          </div>
+          <img src="../static/imge1.jpg" alt="">
+          <div class="multicol">
+            <p>The Enchanting Forest
+              Stepping into the forest is like entering a different world,one where time seems to slow down and the
+              stresses of modern life fade away.The towering trees,some of them centuries old,form a natural canopy that
+              filters the sunlight into a soft,dappled glow.The forest floor is a carpet of fallen leaves,crunching
+              softly underfoot,and the air is rich with the earthy aroma of decaying wood and moist soil.
+
+              In this verdant sanctuary,life thrives in every corner.Mosses and ferns cling to the trunks of ancient
+              oaks,while delicate wildflowers bloom in the occasional sunlit clearings.The forest is a symphony of
+              sounds,from the rustling of leaves in the wind to the distant calls of woodland creatures.Squirrels
+              scamper up and down the trees,their bushy tails flicking energetically,while deer move gracefully through
+              the underbrush,their eyes ever watchful.
+              As you wander deeper into the forest,you may come across a serene pond,its surface mirror-like and
+              reflecting the sky above.The water is so clear that you can see the fish swimming lazily below,and the
+              occasional ripple from a frog leaping into the water breaks the stillness.The forest is a place of endless
+              discovery,where every step reveals something new and beautiful,and you can't help but feel a deep sense of
+              peace and tranquility.</p>
+          </div><img src="../static/imge3.jpg" alt="">
+          <div class="multicol">
+            <p>The Serene Mountain Landscape
+              Nestled in the heart of the wilderness,the majestic mountain range stands as a timeless sentinel of
+              nature's grandeur.As the first light of dawn breaks over the horizon,a soft golden hue bathes the rugged
+              peaks,casting long shadows that dance across the valleys below.The air here is crisp and
+              invigorating,carrying with it the faint scent of pine and earth,a reminder of the purity and untouched
+              beauty of this place.
+
+              The mountains,with their towering heights and intricate rock formations,are a testament to the geological
+              forces that have shaped the earth over millennia.Each peak seems to have its own personality,some sharp
+              and jagged,others smooth and rounded by the relentless passage of time.The slopes are adorned with a
+              mosaic of colors,from the deep greens of coniferous forests to the vibrant splashes of wildflowers that
+              bloom in the spring and summer months.</p>
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+  <button id="backToTop">返回顶部</button>
+  <!-- 转场动画 -->
+  <div class="loading">
+    <div class="box">
+      <svg viewbox='0 0 50 50'>
+        <circle r='25' cx='25' cy='25'></circle>
+        <span>LOADING</span>
+      </svg>
+    </div>
+  </div>
+  <script>
+    const header = document.querySelector('header');
+    const img = document.querySelector('.img');
+    let scrollDistance = 0;
+    let requestId = null;
+    function updateHeaderClipPath() {
+      const clipPathValue = `polygon(0 0, 100% 0%, 100% ${(scrollDistance <= 600) ? 100 - ((scrollDistance / 600) * 60) : 75}%, 0 100%)`;
+      header.style.clipPath = clipPathValue;
+      const scaleValue = 1 + ((scrollDistance / 600) * 1);
+      img.style.transform = `scale(${scaleValue})`;
+      const opacityValue = (scrollDistance / 600);
+    }
+    function scrollHandler(event) {
+      if (event.deltaY < 0) {
+        scrollDistance = Math.max(0, scrollDistance + event.deltaY);
+      } else {
+        scrollDistance = Math.min(600, scrollDistance + event.deltaY);
+      }
+      if (!requestId) {
+        requestId = window.requestAnimationFrame(() => {
+          updateHeaderClipPath();
+          requestId = null;
+        });
+      }
+    }
+    window.addEventListener('wheel', scrollHandler);
+    function jump(target) {
+      window.location.href = target
+    }
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      card.lastMousex = 0;
+      card.lastMouseY = 0;
+      card.isMoving = false;
+      card.addEventListener("mousemove", (e) => {
+        card.lastMouseX = e.offsetX;
+        card.lastMouseY = e.offsetY;
+        card.isMoving = true;
+      });
+      card.addEventListener("mouseout", (e) => {
+        card.isMoving = false;
+      });
+    });
+    function animate() {
+      requestAnimationFrame(animate);
+      cards.forEach((card) => {
+        if (card.isMoving) {
+          const cardWidth = card.clientWidth;
+          const cardHeight = card.clientHeight;
+          const transX = card.lastMouseX - cardWidth / 2;
+          const transY = card.lastMouseY - cardHeight / 2;
+          card.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
+          card.style.boxShadow = `${transX / -1}px ${transY / -1}px 0 #0007`;
+        } else {
+          card.style.transform = ``;
+          card.style.boxShadow = ``;
+        }
+      });
+    }
+    animate();
+    const backToTopButton = document.getElementById('backToTop');
+
+    // 显示/隐藏返回顶部按钮
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+
+    // 返回顶部功能
+    function scrollToTop() {
+      let currentScroll = document.documentElement.scrollTop;
+
+      if (currentScroll > 0) {
+        // 每次滚动距离按比例减少，模拟由快到慢的效果
+        window.scrollTo(0, currentScroll - currentScroll / 10);
+        // 使用 requestAnimationFrame 递归调用
+        requestAnimationFrame(scrollToTop);
+      }
+    }
+    // 绑定点击事件
+    document.getElementById('backToTop').addEventListener('click', scrollToTop);
+    //转场动画
+    const loading = document.querySelector('.loading');
+    function goin(target) {
+      loading.classList.remove('loading_out');
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1000);
+    }
+    function out() {
+      loading.classList.add('loading_out');
+    };
+    window.addEventListener('load', () => {
+      out();
+    });
+
+  </script>
+</body>
+
+</html>

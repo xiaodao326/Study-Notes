@@ -1,0 +1,14 @@
+com\itxiaodao\web\RegisterServlet.class
+com\itxiaodao\web\response\ResponseDemo4.class
+com\itxiaodao\web\servlet\ServletDemo1.class
+com\itxiaodao\web\response\ResponseDemo3.class
+com\itxiaodao\web\LoginServlet.class
+com\itxiaodao\web\servlet\ServletDemo2.class
+com\itxiaodao\web\AutoLoginFilter.class
+com\itxiaodao\web\servlet\ServletDemo3.class
+com\itxiaodao\web\servlet\MyHttpServlet.class
+com\itxiaodao\pojo\User.class
+com\itxiaodao\web\servlet\ServletDemo4.class
+com\itxiaodao\web\response\ResponseDemo1.class
+com\itxiaodao\mapper\UserMapper.class
+com\itxiaodao\web\response\ResponseDemo2.class

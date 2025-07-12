@@ -1,0 +1,238 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: '优设标题黑';
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+p {
+  letter-spacing: 1px;
+  font-size: 50px;
+  color: #333;
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  /* background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1)100%); */
+  background-image: url(../static/imge8.jpg);
+  background-size: 100% 100%;
+  color: white;
+}
+
+.inner-header {
+  height: 65vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.jumpto {
+  display: flex;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  gap: 15px;
+  /* position: absolute; */
+}
+
+.jumpto>div {
+  width: 50px;
+  height: 40px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: #64c0ff solid 2px;
+  font-size: 20px;
+  font-weight: 540;
+  cursor: pointer;
+  transition: 0.25s;
+  font: '优设标题黑';
+  color: var(--clr);
+}
+
+.jumpto .page1 {
+  border: #ff6464 solid 2px;
+}
+
+/* .jumpto>div>span {
+  margin: auto;
+  font-size: large;
+  font-weight: 500;
+} */
+
+/* .jumpTo {
+  display: flex;
+  flex-direction: row;
+}
+
+.jumpTo>div {
+  width: 98px;
+  height: 98px;
+  border: #333 solid 1px;
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  box-shadow: 3px 3px 6px #333;
+}
+
+.jumpTo>div>span {
+  font-size: 23px;
+}
+
+.jumpTo .page1 {
+  margin-left: 0;
+  background-color: #e0dfdf;
+}
+
+.jumpTo>div>span {
+  margin: auto;
+} */
+
+.flex {
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -7px;
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.content {
+  position: relative;
+  /* height: 40vh; */
+  text-align: center;
+  background-color: white;
+}
+
+.content>p {
+  font-size: 70px;
+}
+
+.parallax>use {
+  animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+/* @media (max-width:768px) {
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+
+  .content {
+    height: 30vh;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+} */
+/* 加载动画样式 */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #f7f7f7;
+  z-index: 100000000;
+  transition: 1s ease;
+  display: flex;
+}
+
+.loading .box {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading svg {
+  width: 5rem;
+  margin-bottom: 2rem;
+  overflow: visible;
+  transition: 0.3s ease;
+  margin: 10px auto;
+}
+
+.loading svg circle {
+  fill: none;
+  stroke: #171717;
+  stroke-width: 12;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  transform-origin: center;
+  animation: spin 3s ease-in infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    stroke-dashoffset: 160;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    stroke-dashoffset: -160;
+  }
+}
+
+.loading span {
+  color: #171717;
+  font-size: 2rem;
+  font-weight: 900;
+  transition: 0.3s ease;
+}
+
+.loading_out {
+  transform: translateY(100%);
+}
+
+.loading_out svg,
+.loading_out span {
+  opacity: 0;
+}

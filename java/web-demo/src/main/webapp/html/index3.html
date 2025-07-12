@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page3</title>
+  <!-- <link rel="stylesheet" href="../css/index3.css">
+  <script src="../js/index.js"></script> -->
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: '优设标题黑';
+    }
+
+    .container {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .jumpto {
+      display: flex;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      gap: 15px;
+      /* position: absolute; */
+    }
+
+    .jumpto>div {
+      width: 50px;
+      height: 40px;
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      border: #64c0ff solid 2px;
+      font-size: 20px;
+      font-weight: 540;
+      cursor: pointer;
+      transition: 0.25s;
+      font: '优设标题黑';
+      color: var(--clr);
+    }
+
+    .jumpto .page3 {
+      border: #ff6464 solid 2px;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 80px 200px 80px 80px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .box {
+      position: absolute;
+      top: 70%;
+      transform: translateY(-50%);
+      width: 240px;
+      height: 320px;
+      background-image: var(--img);
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      transition: 0.5s;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      border: #fff 5px solid;
+    }
+
+    .box:nth-child(1),
+    .box:nth-child(2) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(0);
+      /* width: 240px;
+      height: 320px;
+      left: 50%;
+      transform: translateX(-50%); */
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0);
+    }
+
+    .box:nth-child(3) {
+      left: calc(50% + 250px);
+
+    }
+
+    .box:nth-child(4) {
+      left: calc(50% + 500px);
+    }
+
+    .box:nth-child(5) {
+      left: calc(50% + 760px);
+    }
+
+    .box:nth-child(6) {
+      left: calc(50% + 1020px);
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 15px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .buttons span {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      background-color: #111;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .buttons span:active {
+      opacity: 0.5;
+    }
+
+
+    /* 
+    @media (max-width:900px) {
+      .slider {
+        position: absolute;
+        inset: 40px 40px 200px 40px;
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        top: initial;
+        bottom: -170px;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+      }
+    } */
+
+    /* .box:nth-child(1),
+    .box:nth-child(2) {
+      top: initial;
+      bottom: 0px;
+    }
+
+    .box:nth-child(3) {
+      left: 0;
+    }
+
+    .box:nth-child(4) {
+      left: 120px;
+    }
+
+    .box:nth-child(5) {
+      left: 240px;
+    }
+
+    .box:nth-child(6) {
+      left: 360px;
+    } */
+    /* 加载动画样式 */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: #f7f7f7;
+      z-index: 100000000;
+      transition: 1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading .loadingBox {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .loading svg {
+      width: 5rem;
+      margin-bottom: 2rem;
+      overflow: visible;
+      transition: 0.3s ease;
+      margin: 10px auto;
+    }
+
+    .loading svg circle {
+      fill: none;
+      stroke: #171717;
+      stroke-width: 12;
+      stroke-dasharray: 160;
+      stroke-dashoffset: 160;
+      transform-origin: center;
+      animation: spin 3s ease-in infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+        stroke-dashoffset: 160;
+      }
+
+      100% {
+        transform: rotate(360deg);
+        stroke-dashoffset: -160;
+      }
+    }
+
+    .loading span {
+      color: #171717;
+      font-size: 2rem;
+      font-weight: 900;
+      transition: 0.3s ease;
+    }
+
+    .loading_out {
+      transform: translateY(100%);
+    }
+
+    .loading_out svg,
+    .loading_out span {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 转场动画 -->
+  <div class="loading">
+    <div class="loadingBox">
+      <svg viewbox='0 0 50 50'>
+        <circle r='25' cx='25' cy='25'></circle>
+        <span>LOADING</span>
+      </svg>
+    </div>
+  </div>
+  <div class="container">
+    <div class="jumpto">
+      <div class="page1 card" onclick="goin('./index1.html')" style="--clr:#64c0ff;">
+        首页
+        <!-- <span>首页</span> -->
+      </div>
+      <div class="page2 card" onclick="goin('./index2.html')" style="--clr:#64c0ff;">
+        介绍
+        <!-- <span>文章</span> -->
+      </div>
+      <div class="page3 card" onclick="goin('./index3.html')" style="--clr:#ff6464;">
+        欣赏
+        <!-- <span>欣赏</span> -->
+      </div>
+    </div>
+    <div class="slider">
+      <div class="box" style="--img:url('../static/imge2.jpg')"></div>
+      <div class="box" style="--img:url('../static/imge4.jpg')"></div>
+      <div class="box" style="--img:url('../static/imge6.jpg')"></div>
+      <div class="box" style="--img:url('../static/imge7.jpg')"></div>
+      <div class="box" style="--img:url('../static/imge8.jpg')"></div>
+      <div class="box" style="--img:url('../static/imge3.jpg')"></div>
+    </div>
+    <div class="buttons">
+      <span class="prev">&lt;</span>
+      <span class="next">&gt;</span>
+    </div>
+  </div>
+
+  <script>
+    let next = document.querySelector(".next")
+    let prev = document.querySelector(".prev")
+    let slider = document.querySelector(".slider")
+    next.addEventListener("click", function () {
+      let box = document.querySelectorAll(".box")
+      slider.appendChild(box[0])
+    })
+    prev.addEventListener("click", function () {
+      let box = document.querySelectorAll(".box")
+      slider.prepend(box[box.length - 1])
+    })
+    function jump(target) {
+      window.location.href = target
+    }
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      card.lastMousex = 0;
+      card.lastMouseY = 0;
+      card.isMoving = false;
+      card.addEventListener("mousemove", (e) => {
+        card.lastMouseX = e.offsetX;
+        card.lastMouseY = e.offsetY;
+        card.isMoving = true;
+      });
+      card.addEventListener("mouseout", (e) => {
+        card.isMoving = false;
+      });
+    });
+    function animate() {
+      requestAnimationFrame(animate);
+      cards.forEach((card) => {
+        if (card.isMoving) {
+          const cardWidth = card.clientWidth;
+          const cardHeight = card.clientHeight;
+          const transX = card.lastMouseX - cardWidth / 2;
+          const transY = card.lastMouseY - cardHeight / 2;
+          card.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
+          card.style.boxShadow = `${transX / -1}px ${transY / -1}px 0 #0007`;
+        } else {
+          card.style.transform = ``;
+          card.style.boxShadow = ``;
+        }
+      });
+    }
+    animate();
+    //转场动画
+    const loading = document.querySelector('.loading');
+    function goin(target) {
+      loading.classList.remove('loading_out');
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1000);
+    }
+    function out() {
+      loading.classList.add('loading_out');
+    };
+    window.addEventListener('load', () => {
+      out();
+    });
+  </script>
+</body>
+
+</html>
